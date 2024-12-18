@@ -53,10 +53,10 @@ void loop() {
   convertValue(VL53L0X_IDX_SECOND, rangeVal);
   Serial.print("Sensor 2: ");
   Serial.println(rangeVal);
-  */
+
   unsigned long endTime = millis(); // Record the end time of the loop
   unsigned long executionTime = endTime - startTime; // Calculate execution time
-  
+  */
   Serial.print("Loop Execution Time: ");
   Serial.print(executionTime);
   Serial.println(" ms");
