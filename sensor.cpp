@@ -365,11 +365,14 @@ static bool init_addresses()
 
     /* Wake each sensor up one by one and set a unique address for each one */
     if (!init_address(VL53L0X_IDX_FIRST)) {
+        Serial.print("first set add fail");
         return false;
     }
     if (!init_address(VL53L0X_IDX_SECOND)) {
+        Serial.print("second set add fail");
         return false;
     }
+    /*
     if (!init_address(VL53L0X_IDX_THIRD)) {
         return false;
     }
@@ -382,6 +385,7 @@ static bool init_addresses()
     if (!init_address(VL53L0X_IDX_SIXTH)) {
         return false;
     }
+    */
     return true;
 }
 
@@ -409,6 +413,7 @@ bool vl53l0x_init()
         Serial.println("2 done");
         return false;
     }
+    /*
     if (!init_config(VL53L0X_IDX_THIRD)) {
         Serial.println("3 done");
         return false;
@@ -425,6 +430,7 @@ bool vl53l0x_init()
         Serial.println("6 done");
         return false;
     }
+    */
     return true;
 }
 
