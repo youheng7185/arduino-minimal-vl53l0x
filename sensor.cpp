@@ -32,6 +32,9 @@
 #define GPIO_XSHUT_FIRST 6
 #define GPIO_XSHUT_SECOND 7
 #define GPIO_XSHUT_THIRD 8
+#define GPIO_XSHUT_FOURTH 9
+#define GPIO_XSHUT_FIFTH 10
+#define GPIO_XSHUT_SIXTH 11
 
 static uint8_t stop_variable = 0;
 
@@ -46,6 +49,9 @@ static const vl53l0x_info_t vl53l0x_infos[] =
     [VL53L0X_IDX_FIRST] = { .addr = 0x30, .xshut_gpio = 6 },
     [VL53L0X_IDX_SECOND] = { .addr = 0x31, .xshut_gpio = 7 },
     [VL53L0X_IDX_THIRD] = { .addr = 0x32, .xshut_gpio = 8 },
+    [VL53L0X_IDX_FOURTH] = { .addr = 0x33, .xshut_gpio = 9 },
+    [VL53L0X_IDX_FIFTH] = { .addr = 0x34, .xshut_gpio = 10 },
+    [VL53L0X_IDX_SIXTH] = { .addr = 0x35, .xshut_gpio = 11 },
 };
 
 /**
@@ -319,6 +325,15 @@ static void configure_gpio() {
 
     pinMode(GPIO_XSHUT_THIRD, OUTPUT);
     digitalWrite(GPIO_XSHUT_THIRD, LOW);
+
+    pinMode(GPIO_XSHUT_FOURTH, OUTPUT);
+    digitalWrite(GPIO_XSHUT_THIRD, LOW);
+
+    pinMode(GPIO_XSHUT_FIFTH, OUTPUT);
+    digitalWrite(GPIO_XSHUT_THIRD, LOW);
+
+    pinMode(GPIO_XSHUT_SIXTH, OUTPUT);
+    digitalWrite(GPIO_XSHUT_THIRD, LOW);
 }
 
 /* Sets the address of a single VL53L0X sensor.
@@ -355,7 +370,18 @@ static bool init_addresses()
     if (!init_address(VL53L0X_IDX_SECOND)) {
         return false;
     }
-
+    if (!init_address(VL53L0X_IDX_THIRD)) {
+        return false;
+    }
+    if (!init_address(VL53L0X_IDX_FOURTH)) {
+        return false;
+    }
+    if (!init_address(VL53L0X_IDX_FIFTH)) {
+        return false;
+    }
+    if (!init_address(VL53L0X_IDX_SIXTH)) {
+        return false;
+    }
     return true;
 }
 
@@ -380,7 +406,23 @@ bool vl53l0x_init()
         return false;
     }
     if (!init_config(VL53L0X_IDX_SECOND)) {
-        Serial.println("second done");
+        Serial.println("2 done");
+        return false;
+    }
+    if (!init_config(VL53L0X_IDX_THIRD)) {
+        Serial.println("3 done");
+        return false;
+    }
+    if (!init_config(VL53L0X_IDX_FOURTH)) {
+        Serial.println("4 done");
+        return false;
+    }
+    if (!init_config(VL53L0X_IDX_FIFTH)) {
+        Serial.println("5 done");
+        return false;
+    }
+    if (!init_config(VL53L0X_IDX_SIXTH)) {
+        Serial.println("6 done");
         return false;
     }
     return true;
