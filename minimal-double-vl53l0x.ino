@@ -42,41 +42,24 @@ unsigned long endTime;
 unsigned long executionTime;
 
 void loop() {
-  double rangeVal = 0;              // Variable to hold the distance reading
   unsigned long startTime = millis(); // Record the start time of the loop
   uint16_t range = 0;
+  uint8_t count = 1;
 
-  vl53l0x_read_range_single(VL53L0X_IDX_FIRST, range);
-  // Read and print range for the first sensor
-  //convertValue(VL53L0X_IDX_FIRST, rangeVal);
-  Serial.print("Sensor 1: ");
-  Serial.println(range);
-/*
-  // Read and print range for the second sensor
-  convertValue(VL53L0X_IDX_SECOND, rangeVal);
-  Serial.print("Sensor 2: ");
-  Serial.println(rangeVal);
+  for (int idx = VL53L0X_IDX_FIRST; idx <= VL53L0X_IDX_SIXTH; ++idx) {
+    vl53l0x_read_range_single(idx, range);
+    // Read and print range for the first sensor
+    //convertValue(VL53L0X_IDX_FIRST, rangeVal);
+    Serial.print("Sensor ");
+    Serial.print(count);
+    Serial.print(": ");
+    Serial.println(range);
+    count++;
+    if(count == 7) {
+      count = 1;
+    }
+  }
 
-  // Read and print range for the second sensor
-  convertValue(VL53L0X_IDX_THIRD, rangeVal);
-  Serial.print("Sensor 3: "); // not accurate
-  Serial.println(rangeVal);
-
-  // Read and print range for the second sensor
-  convertValue(VL53L0X_IDX_FOURTH, rangeVal);
-  Serial.print("Sensor 4: "); 
-  Serial.println(rangeVal + 1.0);
-
-  // Read and print range for the second sensor
-  convertValue(VL53L0X_IDX_FIFTH, rangeVal);
-  Serial.print("Sensor 5: "); //+3
-  Serial.println(rangeVal + 2.0);
-
-  // Read and print range for the second sensor
-  convertValue(VL53L0X_IDX_SIXTH, rangeVal);
-  Serial.print("Sensor 6: "); // + 1
-  Serial.println(rangeVal + 1.0);
-*/
   unsigned long endTime = millis(); // Record the end time of the loop
   unsigned long executionTime = endTime - startTime; // Calculate execution time
 
