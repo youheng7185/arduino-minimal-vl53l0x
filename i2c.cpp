@@ -9,10 +9,13 @@ void i2c_set_slave_address(uint8_t addr) {
 }
 
 bool i2c_write_addr8_data8(uint8_t address, uint8_t data) {
-  Wire.beginTransmission(current_address); // Use the current address
+  Wire.beginTransmission(current_address);
   Wire.write(address);
   Wire.write(data);
-  if (Wire.endTransmission() != 0) {
+  int result = Wire.endTransmission();
+  if (result != 0) {
+    Serial.print("I2C Write Error: ");
+    Serial.println(result); // 0: success, 1-4: error codes
     return false;
   }
   return true;

@@ -29,12 +29,12 @@
 #define VL53L0X_EXPECTED_DEVICE_ID (0xEE)
 #define VL53L0X_DEFAULT_ADDRESS (0x29)
 
-#define GPIO_XSHUT_FIRST 6
-#define GPIO_XSHUT_SECOND 7
-#define GPIO_XSHUT_THIRD 8
-#define GPIO_XSHUT_FOURTH 9
-#define GPIO_XSHUT_FIFTH 10
-#define GPIO_XSHUT_SIXTH 11
+#define GPIO_XSHUT_FIRST A0
+#define GPIO_XSHUT_SECOND A1
+#define GPIO_XSHUT_THIRD A2
+#define GPIO_XSHUT_FOURTH A3
+#define GPIO_XSHUT_FIFTH 2
+#define GPIO_XSHUT_SIXTH 3
 
 static uint8_t stop_variable = 0;
 
@@ -46,12 +46,12 @@ typedef struct vl53l0x_info
 
 static const vl53l0x_info_t vl53l0x_infos[] =
 {
-    [VL53L0X_IDX_FIRST] = { .addr = 0x30, .xshut_gpio = 6 },
-    [VL53L0X_IDX_SECOND] = { .addr = 0x31, .xshut_gpio = 7 },
-    [VL53L0X_IDX_THIRD] = { .addr = 0x32, .xshut_gpio = 8 },
-    [VL53L0X_IDX_FOURTH] = { .addr = 0x33, .xshut_gpio = 9 },
-    [VL53L0X_IDX_FIFTH] = { .addr = 0x34, .xshut_gpio = 10 },
-    [VL53L0X_IDX_SIXTH] = { .addr = 0x35, .xshut_gpio = 11 },
+    [VL53L0X_IDX_FIRST] = { .addr = 0x30, .xshut_gpio = GPIO_XSHUT_FIRST },
+    [VL53L0X_IDX_SECOND] = { .addr = 0x31, .xshut_gpio = GPIO_XSHUT_SECOND },
+    [VL53L0X_IDX_THIRD] = { .addr = 0x32, .xshut_gpio = GPIO_XSHUT_THIRD },
+    [VL53L0X_IDX_FOURTH] = { .addr = 0x33, .xshut_gpio = GPIO_XSHUT_FOURTH },
+    [VL53L0X_IDX_FIFTH] = { .addr = 0x34, .xshut_gpio = GPIO_XSHUT_FIFTH },
+    [VL53L0X_IDX_SIXTH] = { .addr = 0x35, .xshut_gpio = GPIO_XSHUT_SIXTH },
 };
 
 /**
@@ -349,10 +349,12 @@ static bool init_address(vl53l0x_idx_t idx)
     delay(400);
 
     if (!device_is_booted()) {
+      Serial.println("device not booted");
         return false;
     }
 
     if (!configure_address(vl53l0x_infos[idx].addr)) {
+      Serial.println("config addr fail");
         return false;
     }
     return true;
@@ -372,7 +374,6 @@ static bool init_addresses()
         Serial.print("second set add fail");
         return false;
     }
-    /*
     if (!init_address(VL53L0X_IDX_THIRD)) {
         return false;
     }
@@ -385,7 +386,7 @@ static bool init_addresses()
     if (!init_address(VL53L0X_IDX_SIXTH)) {
         return false;
     }
-    */
+
     return true;
 }
 
@@ -413,7 +414,6 @@ bool vl53l0x_init()
         Serial.println("2 done");
         return false;
     }
-    /*
     if (!init_config(VL53L0X_IDX_THIRD)) {
         Serial.println("3 done");
         return false;
@@ -430,7 +430,6 @@ bool vl53l0x_init()
         Serial.println("6 done");
         return false;
     }
-    */
     return true;
 }
 
