@@ -2,20 +2,6 @@
 #include <Wire.h>
 #include "convert.h"
 
-#define FIFO_SIZE 5
-
-uint16_t fifoBuffer[FIFO_SIZE] = {0};  // Buffer to store the readings (using uint16_t)
-uint8_t fifoIndex = 0;  // Index to track position in the buffer
-
-// Function to calculate the average of the FIFO buffer
-uint16_t calculateAverage() {
-  uint32_t sum = 0;  // Use uint32_t for the sum to prevent overflow
-  for (uint8_t i = 0; i < FIFO_SIZE; i++) {
-    sum += fifoBuffer[i];
-  }
-  return sum / FIFO_SIZE;  // Return average as uint16_t
-}
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -24,11 +10,6 @@ void setup() {
   //Wire.begin(5, 4);
   Wire.setClock(100000);
   Serial.println("done begin i2c");
-  
-  // Initialize the FIFO buffer with 0 (optional, since it's already initialized)
-  for (uint8_t i = 0; i < FIFO_SIZE; i++) {
-    fifoBuffer[i] = 0;
-  }
 
   if(!vl53l0x_init()){
     Serial.println("fail init multiple sensor");
@@ -37,6 +18,7 @@ void setup() {
     Serial.println("success init multiple sensor");
   }
 }
+
 unsigned long startTime;
 unsigned long endTime;
 unsigned long executionTime;

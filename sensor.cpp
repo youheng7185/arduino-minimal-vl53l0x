@@ -393,6 +393,7 @@ bool vl53l0x_init()
         Serial.println("fail init add");
         return false;
     }
+    
     if (!init_config(VL53L0X_IDX_FIRST)) {
         Serial.println("first done");
         return false;
