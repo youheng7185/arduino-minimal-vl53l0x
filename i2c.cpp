@@ -39,18 +39,19 @@ bool i2c_read_addr8_data8(uint8_t address, uint8_t &data) {
 
 bool i2c_read_addr8_data16(uint8_t address, uint16_t &data) {
   Wire.beginTransmission(current_address); // Use the current address
-  Wire.write(address);
-  if (Wire.endTransmission(false) != 0) { // Send repeated start
-    return false; // Transmission failed
+  Wire.write(address);                     // Specify the register address
+  if (Wire.endTransmission(false) != 0) {  // Send repeated start
+    return false;                          // Transmission failed
   }
 
-  Wire.requestFrom(current_address, 2); // Request 2 bytes of data
+  Wire.requestFrom(current_address, (uint8_t)2); // Request 2 bytes of data
   if (Wire.available() == 2) {
-    // Read two bytes and combine them into a 16-bit value
-    data = Wire.read();         // First byte (low byte)
-    data |= (Wire.read() << 8); // Second byte (high byte)
+    uint8_t high_byte = Wire.read();       // Read high byte first
+    uint8_t low_byte = Wire.read();        // Read low byte
+    data = (high_byte << 8) | low_byte;    // Combine into a 16-bit value
     return true;
   }
 
-  return false;
+  return false; // Insufficient data available
 }
+

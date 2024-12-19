@@ -44,12 +44,14 @@ unsigned long executionTime;
 void loop() {
   double rangeVal = 0;              // Variable to hold the distance reading
   unsigned long startTime = millis(); // Record the start time of the loop
+  uint16_t range = 0;
 
+  vl53l0x_read_range_single(VL53L0X_IDX_FIRST, range);
   // Read and print range for the first sensor
-  convertValue(VL53L0X_IDX_FIRST, rangeVal);
+  //convertValue(VL53L0X_IDX_FIRST, rangeVal);
   Serial.print("Sensor 1: ");
-  Serial.println(rangeVal);
-
+  Serial.println(range);
+/*
   // Read and print range for the second sensor
   convertValue(VL53L0X_IDX_SECOND, rangeVal);
   Serial.print("Sensor 2: ");
@@ -74,7 +76,7 @@ void loop() {
   convertValue(VL53L0X_IDX_SIXTH, rangeVal);
   Serial.print("Sensor 6: "); // + 1
   Serial.println(rangeVal + 1.0);
-
+*/
   unsigned long endTime = millis(); // Record the end time of the loop
   unsigned long executionTime = endTime - startTime; // Calculate execution time
 

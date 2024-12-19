@@ -327,13 +327,13 @@ static void configure_gpio() {
     digitalWrite(GPIO_XSHUT_THIRD, LOW);
 
     pinMode(GPIO_XSHUT_FOURTH, OUTPUT);
-    digitalWrite(GPIO_XSHUT_THIRD, LOW);
+    digitalWrite(GPIO_XSHUT_FOURTH, LOW);
 
     pinMode(GPIO_XSHUT_FIFTH, OUTPUT);
-    digitalWrite(GPIO_XSHUT_THIRD, LOW);
+    digitalWrite(GPIO_XSHUT_FIFTH, LOW);
 
     pinMode(GPIO_XSHUT_SIXTH, OUTPUT);
-    digitalWrite(GPIO_XSHUT_THIRD, LOW);
+    digitalWrite(GPIO_XSHUT_SIXTH, LOW);
 }
 
 /* Sets the address of a single VL53L0X sensor.
