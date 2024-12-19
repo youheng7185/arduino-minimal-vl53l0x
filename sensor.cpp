@@ -366,25 +366,12 @@ static bool init_addresses()
     configure_gpio();
 
     /* Wake each sensor up one by one and set a unique address for each one */
-    if (!init_address(VL53L0X_IDX_FIRST)) {
-        Serial.print("first set add fail");
+    for (int idx = VL53L0X_IDX_FIRST; idx <= VL53L0X_IDX_SIXTH; ++idx) {
+      if (!init_address(idx)) {
+        Serial.println("init add fail");
+        while (1);
         return false;
-    }
-    if (!init_address(VL53L0X_IDX_SECOND)) {
-        Serial.print("second set add fail");
-        return false;
-    }
-    if (!init_address(VL53L0X_IDX_THIRD)) {
-        return false;
-    }
-    if (!init_address(VL53L0X_IDX_FOURTH)) {
-        return false;
-    }
-    if (!init_address(VL53L0X_IDX_FIFTH)) {
-        return false;
-    }
-    if (!init_address(VL53L0X_IDX_SIXTH)) {
-        return false;
+      }
     }
 
     return true;
